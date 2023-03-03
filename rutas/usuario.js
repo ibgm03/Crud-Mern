@@ -10,3 +10,26 @@ const eschemausuario = new eschema({
     telefono: String,
     idusuario: String
 })
+
+const ModeloUsuario = mongoose.model('usuarios', eschemausuario)
+module.exports= router
+
+// router.get('/ejemplo', (req,res)=>{
+//     res.end('saludo carga desde ruta ejemplo')
+// })
+
+router.post('/agregarusuario',(req,res)=>{
+    const nuevousuario = new ModeloUsuario({
+            nombre:req.body.nombre,
+            email:req.body.email,
+            telefono:req.body.telefono,
+            idusuario:req.body.idusuario
+    });
+nuevousuario.save(function(err){
+    if(!err){
+ res.send('usuario agregado correctamente')
+    }else{
+        res.send(err)
+    }
+})
+})
